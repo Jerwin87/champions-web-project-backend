@@ -110,7 +110,7 @@ async def get_aspect(set_id: int):
             return set
         
 @app.get("/stats/")
-async def get_hero_stats(q: Annotated[list[]]):
+async def get_hero_stats():#q: Annotated[list[]]):
     query = f"SELECT * FROM heroes WHERE hero_id={hero_id}"
     try:
         hero = con.execute(query).fetchone()
