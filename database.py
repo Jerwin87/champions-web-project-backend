@@ -1,27 +1,9 @@
-import sqlite3
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-con = sqlite3.connect("../database/database.db")
+engine = create_engine(SQLAlCHEMY_DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-cur = con.cursor()
-
-
-
-def get_aspect(aspect_id: int):
-    query = f"SELECT * FROM aspects WHERE aspect_id={aspect_id}"
-    try:
-        res = cur.execute(query)
-    except sqlite3.OperationalError: 
-        return {"ERROR": "sqlite3.OperationalError"}
-    else:
-        aspect = res.fetchone()
-        if aspect is None:
-            return {"message": "aspect not found"}
-        else:
-            return aspect
-    
-print(get_aspect(aspect_id=7))
-
-
-
-
+Base = declarative_base()
 
